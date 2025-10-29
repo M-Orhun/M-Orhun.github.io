@@ -1,11 +1,654 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <title>Basit HTML Sayfası</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammed Orhun | Yazılım Mühendisliği</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Özel kaydırma çubuğu (isteğe bağlı) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+        /* Dark mod için kaydırma çubuğu */
+        .dark ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+    </style>
 </head>
-<body>
-  <h1>Merhaba Dünya!</h1>
-  <p>Bu, basit bir HTML örneğidir.</p>
+<body class="bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- ===== Header / Navbar ===== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo / İsim -->
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-gray-900 dark:text-white">
+                        Muhammed Orhun
+                    </a>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#about" data-key="nav_about" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">Hakkımda</a>
+                    <a href="#projects" data-key="nav_projects" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">Projeler</a>
+                    <a href="#skills" data-key="nav_skills" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">Yetenekler</a>
+                    <a href="#interests" data-key="nav_interests" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">İlgi Alanları</a>
+                    <a href="#experience" data-key="nav_experience" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">Deneyim</a>
+                    <a href="#contact" data-key="nav_contact" class="font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors">İletişim</a>
+                </div>
+                
+                <!-- Kontroller (Tema ve Dil) -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dil Değiştirici -->
+                    <button id="lang-toggle-btn" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-semibold">
+                        ENG
+                    </button>
+                    
+                    <!-- Tema Değiştirici -->
+                    <button id="theme-toggle-btn" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <span id="theme-icon-sun">
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </span>
+                        <span id="theme-icon-moon" class="hidden">
+                            <i data-lucide="moon" class="w-5 h-5"></i>
+                        </span>
+                    </button>
+                    
+                    <!-- Mobil Menü Butonu -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Mobil Menü -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" data-key="nav_about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">Hakkımda</a>
+                <a href="#projects" data-key="nav_projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">Projeler</a>
+                <a href="#skills" data-key="nav_skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">Yetenekler</a>
+                <a href="#interests" data-key="nav_interests" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">İlgi Alanları</a>
+                <a href="#experience" data-key="nav_experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">Deneyim</a>
+                <a href="#contact" data-key="nav_contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">İletişim</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Ana İçerik ===== -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+
+        <!-- ===== Hero (Home) Bölümü ===== -->
+        <section id="home" class="text-center py-24 sm:py-32">
+            <h1 data-key="hero_title" class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-gray-900 dark:text-white">
+                Muhammed Orhun
+            </h1>
+            <p data-key="hero_subtitle" class="mt-4 text-xl sm:text-2xl text-blue-600 dark:text-gray-400 font-medium">
+                Yazılım Mühendisliği Adayı
+            </p>
+            <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+                <span data-key="hero_desc_1">Yenilikçi çözümler üretmeye ve yeni teknolojiler öğrenmeye odaklıyım.</span>
+                <span data-key="hero_desc_2">Hızlı öğrenme yeteneğimle karmaşık sorunlara etkili çözümler getiriyorum.</span>
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#projects" data-key="hero_cta" class="w-full sm:w-auto inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300">
+                    Projelerimi Gör
+                </a>
+                <a href="#contact" data-key="hero_cta_2" class="w-full sm:w-auto inline-block px-8 py-3 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100 font-semibold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
+                    İletişime Geç
+                </a>
+            </div>
+            <div class="mt-12 flex justify-center space-x-6">
+                <a href="https://github.com/M-Orhun" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-8 h-8"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/muhammed-orhuun/" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white transition-colors">
+                    <i data-lucide="linkedin" class="w-8 h-8"></i>
+                </a>
+                <a href="mailto:muhammed.orhunm@gmail.com" class="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                    <i data-lucide="mail" class="w-8 h-8"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== Hakkımda (About) Bölümü ===== -->
+        <section id="about" class="py-20">
+            <div class="text-center mb-12">
+                <h2 data-key="about_title" class="text-4xl font-bold text-gray-900 dark:text-white">Hakkımda</h2>
+            </div>
+            <div class="max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-md">
+                <p data-key="about_desc" class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Yazılım mühendisliğine olan yoğun ilgim ve merakım, beni sürekli olarak yeni teknolojiler öğrenmeye ve yenilikçi çözümler üretmeye itiyor. Hızlı öğrenme yeteneğim sayesinde karmaşık konuları çabucak kavrayabiliyor ve projelerde hızla ilerleyebiliyorum. Java, C ve C++ gibi dillerde yetkinim ve çeşitli projeler geliştirmek için fırsatlar arıyorum. Yazılım dünyasında kendimi sürekli geliştirmek ve yenilikçi çözümler üretmek için heyecanlıyım.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== Projeler (Projects) Bölümü (SIRA DEĞİŞTİ) ===== -->
+        <section id="projects" class="py-20">
+            <div class="text-center mb-12">
+                <h2 data-key="projects_title" class="text-4xl font-bold text-gray-900 dark:text-white">Projeler</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Proje Kartı 1 -->
+                <div class="project-card">
+                    <div class="p-6">
+                        <h3 data-key="proj1_title" class="text-2xl font-semibold mb-2">Full-Stack Kanban Proje Takipçisi</h3>
+                        <p data-key="proj1_desc" class="text-gray-600 dark:text-gray-300 mb-4">React, Node.js ve MongoDB ile geliştirilmiş bir proje takip web sitesi.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">Node.js</span>
+                            <span class="tech-pill">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Proje Kartı 2 -->
+                <div class="project-card">
+                    <div class="p-6">
+                        <h3 data-key="proj2_title" class="text-2xl font-semibold mb-2">F1 İleri Düzey Veri Analizi</h3>
+                        <p data-key="proj2_desc" class="text-gray-600 dark:text-gray-300 mb-4">Python kullanarak F1 araç telemetrisi üzerinden model bozulması, sürücü stili analizi ve yarış anomalilerinin tespiti.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Data Analysis</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Proje Kartı 3 -->
+                <div class="project-card">
+                    <div class="p-6">
+                        <h3 data-key="proj3_title" class="text-2xl font-semibold mb-2">Restoran Yönetim Sistemi</h3>
+                        <p data-key="proj3_desc" class="text-gray-600 dark:text-gray-300 mb-4">Yöneticiler ve garsonlar için bir restoran uygulaması geliştirildi.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">App Development</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proje Kartı 4 -->
+                <div class="project-card">
+                    <div class="p-6">
+                        <h3 data-key="proj4_title" class="text-2xl font-semibold mb-2">Figma Lojistik Yönetim Paneli</h3>
+                        <p data-key="proj4_desc" class="text-gray-600 dark:text-gray-300 mb-4">Bir Figma tasarımına dayalı olarak bir lojistik yönetim paneli tasarlandı ve geliştirildi.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">Figma</span>
+                            <span class="tech-pill">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== Yetenekler (Skills) Bölümü ===== -->
+            <div class="text-center mb-12">
+                <h2 data-key="skills_title" class="text-4xl font-bold text-gray-900 dark:text-white">Yetenekler</h2>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 data-key="skills_lang" class="text-2xl font-semibold mb-4 text-center text-blue-600 dark:text-gray-200">Programlama Dilleri</h3>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <span class="skill-pill">C</span>
+                            <span class="skill-pill">C++</span>
+                        <span class="skill-pill">TypeScript</span>
+                        <span class="skill-pill">JavaScript</span>
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">HTML</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 data-key="skills_tools" class="text-2xl font-semibold mb-4 text-center text-blue-600 dark:text-gray-200">Araçlar & Teknolojiler</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-pill">React</span>
+                        <span class="skill-pill">Node.js</span>
+                        <span class="skill-pill">MongoDB</span>
+                        <span class="skill-pill">SQL</span>
+                        <span class="skill-pill">REST APIs</span>
+                        <span class="skill-pill">Git</span>
+                        <span class="skill-pill">Linux</span>
+                        <span class="skill-pill">Agile Methodologies</span>
+                        <span class="skill-pill">Data Structures & Analysis</span>
+                        <span class="skill-pill">AI (GPT Tools)</span>
+                        <span class="skill-pill">MS Office</span>
+                        <span class="skill-pill">Figma</span>
+                        <span class="skill-pill">Secure Coding</span>
+                        <span class="skill-pill">Cloud Technologies</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== İlgi Alanları (Interests) Bölümü (YAPI DEĞİŞTİ) ===== -->
+            <div class="text-center mb-12">
+                <h2 data-key="interests_title" class="text-4xl font-bold text-gray-900 dark:text-white">İlgi Alanları</h2>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="skill-pill" data-key="interest_auto">Otomotiv Yazılımları</span>
+                    <span class="skill-pill" data-key="interest_app">Uygulama Geliştirme</span>
+                    <span class="skill-pill" data-key="interest_algo">Algoritma Tasarımı</span>
+                    <span class="skill-pill" data-key="interest_embed">Gömülü Sistemler</span>
+                    <span class="skill-pill" data-key="interest_cloud">Bulut Teknolojileri</span>
+                    <span class="skill-pill" data-key="interest_secure">Güvenli Kodlama</span>
+                    <span class="skill-pill" data-key="interest_qa">Yazılım Test & Kalite</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Deneyim (Experience) Bölümü ===== -->
+        <section id="experience" class="py-20">
+            <div class="text-center mb-12">
+                <h2 data-key="exp_title" class="text-4xl font-bold text-gray-900 dark:text-white">Deneyim</h2>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <!-- Deneyim Öğesi -->
+                <div class="relative pl-10 pb-8 border-l-2 border-blue-500 dark:border-gray-600">
+                    <!-- Zaman Çizgisi Noktası -->
+                    <div class="absolute -left-3 top-1 w-5 h-5 bg-blue-500 dark:bg-gray-600 rounded-full border-4 border-white dark:border-gray-950"></div>
+                    
+                    <span data-key="exp1_date" class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">2023 - Günümüz</span>
+                    <h3 data-key="exp1_role" class="text-xl font-semibold text-gray-900 dark:text-white">Computer Society Yönetim Kurulu Üyesi</h3>
+                    <p data-key="exp1_company" class="text-lg font-medium text-blue-600 dark:text-gray-400 mb-3">IEEE Üsküdar Öğrenci Kolu</p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+                        <li data-key="exp1_desc1">Etkinliklere ve projelere liderlik ederek organizasyonel becerileri geliştirme (RASTAGE 23).</li>
+                        <li data-key="exp1_desc2">Teknik çözümler tasarlamak ve uygulamak için ekiplerle çalışma (MICS' with MIS).</li>
+                        <li data-key="exp1_desc3">Projelerin planlanmasını, yürütülmesini ve değerlendirilmesini denetleme (Ent. Event).</li>
+                    </ul>
+                </div>
+                <!-- Gelecekte buraya daha fazla deneyim eklenebilir -->
+            </div>
+        </section>
+        
+        <!-- ===== Eğitim (Education) Bölümü (YAPI DEĞİŞTİ) ===== -->
+        <section id="education" class="py-20">
+            <div class="text-center mb-12">
+                <h2 data-key="edu_title" class="text-4xl font-bold text-gray-900 dark:text-white">Eğitim</h2>
+            </div>
+            <div class="max-w-3xl mx-auto text-center">
+                 <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-md">
+                    <h3 data-key="edu1_degree" class="text-xl font-semibold text-gray-900 dark:text-white">Yazılım Mühendisliği Lisans</h3>
+                    <p data-key="edu1_school" class="text-lg font-medium text-blue-600 dark:text-gray-400 mt-1 mb-2">Üsküdar Üniversitesi</p>
+                    <p data-key="edu1_desc" class="text-gray-600 dark:text-gray-300">GPA: 3.35, %100 Burs, C1 İleri Düzey İngilizce Hazırlık.</p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- ===== İletişim (Contact) Bölümü ===== -->
+        <section id="contact" class="py-20">
+            <div class="text-center mb-12">
+                <h2 data-key="contact_title" class="text-4xl font-bold text-gray-900 dark:text-white">İletişime Geçin</h2>
+                <p data-key="contact_desc" class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                    Şu anda yeni fırsatlara açığım. Benimle iletişime geçmekten çekinmeyin.
+                </p>
+            </div>
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- E-posta -->
+                <a href="mailto:muhammed.orhunm@gmail.com" class="contact-card group">
+                    <div class="contact-icon bg-red-100 dark:bg-gray-800 text-red-600 dark:text-red-400">
+                        <i data-lucide="mail" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Email</h3>
+                        <p class="text-gray-600 dark:text-gray-400">muhammed.orhunm@gmail.com</p>
+                        <span data-key="contact_email" class="contact-link text-red-600 dark:text-red-400">E-posta Gönder</span>
+                    </div>
+                </a>
+                
+                <!-- LinkedIn -->
+                 <a href="https://www.linkedin.com/in/muhammed-orhuun/" target="_blank" rel="noopener noreferrer" class="contact-card group">
+                    <div class="contact-icon bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400">
+                        <i data-lucide="linkedin" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">LinkedIn</h3>
+                        <p class="text-gray-600 dark:text-gray-400">/muhammed-orhuun</p>
+                        <span data-key="contact_linkedin" class="contact-link text-blue-600 dark:text-gray-400">Profilime Git</span>
+                    </div>
+                </a>
+
+                <!-- Telefon -->
+                <a href="tel:+905326301015" class="contact-card group">
+                    <div class="contact-icon bg-green-100 dark:bg-gray-800 text-green-600 dark:text-green-400">
+                        <i data-lucide="phone" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Telefon</h3>
+                        <p class="text-gray-600 dark:text-gray-400">+90 532 630 10 15</p>
+                        <span data-key="contact_phone" class="contact-link text-green-600 dark:text-green-400">Ara</span>
+                    </div>
+                </a>
+
+                <!-- Konum -->
+                <div class="contact-card group !items-center">
+                    <div class="contact-icon bg-purple-100 dark:bg-gray-800 text-purple-600 dark:text-purple-400">
+                        <i data-lucide="map-pin" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Konum</h3>
+                        <p data-key="contact_location" class="text-gray-600 dark:text-gray-400">Çekmeköy, İstanbul</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="border-t border-gray-200 dark:border-gray-700 mt-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-gray-500 dark:text-gray-400">
+                &copy; <span id="current-year"></span> Muhammed Orhun. Tüm hakları saklıdır.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ----- Dil Verisi -----
+        const content = {
+            en: {
+                // Nav
+                nav_about: "About",
+                nav_projects: "Projects",
+                nav_skills: "Skills",
+                nav_interests: "Interests",
+                nav_experience: "Experience",
+                nav_contact: "Contact",
+                // Hero
+                hero_title: "Muhammed Orhun",
+                hero_subtitle: "Software Engineering Candidate",
+                hero_desc_1: "Focused on creating innovative solutions and learning new technologies.",
+                hero_desc_2: "I bring effective solutions to complex problems with my quick learning ability.",
+                hero_cta: "View Projects",
+                hero_cta_2: "Get In Touch",
+                // About
+                about_title: "About Me",
+                about_desc: "My strong interest and curiosity in software engineering constantly drive me to learn new technologies and create innovative solutions. Thanks to my quick learning ability, I can quickly grasp complex topics and progress rapidly in projects. I am proficient in languages such as Java, C, and C++, and I am looking for opportunities to develop various projects. I am excited to continuously improve myself and produce innovative solutions in the software world.",
+                // Projects
+                projects_title: "Projects",
+                proj1_title: "Full-Stack Kanban Project Tracker",
+                proj1_desc: "A project tracker website developed with React, Node.js, and MongoDB.",
+                proj2_title: "F1 Advanced Data Analysis",
+                proj2_desc: "Analyzing F1 vehicle telemetry data using Python to model degradation, driver style, and detect race anomalies.",
+                proj3_title: "Restaurant Management System",
+                proj3_desc: "Developed a restaurant app for managers and waitstaff.",
+                proj4_title: "Figma Logistics Management Panel",
+                proj4_desc: "Designed and developed a logistics management panel based on a Figma design.",
+                // Skills
+                skills_title: "Skills",
+                skills_lang: "Programming Languages",
+                skills_tools: "Tools & Technologies",
+                // Interests
+                interests_title: "Areas of Interest",
+                interest_auto: "Automotive Software",
+                interest_app: "Application Development",
+                interest_algo: "Algorithm Design",
+                interest_embed: "Embedded Systems",
+                interest_cloud: "Cloud Technologies",
+                interest_secure: "Secure Coding Practices",
+                interest_qa: "Software Testing & QA",
+                // Experience
+                exp_title: "Experience",
+                exp1_role: "Computer Society Board Member",
+                exp1_company: "IEEE Uskudar Student Branch",
+                exp1_date: "2023 - Present",
+                exp1_desc1: "Led events and projects, enhancing organizational skills (RASTAGE 23).",
+                exp1_desc2: "Worked in teams to design and execute technical solutions (MICS' with MIS).",
+                exp1_desc3: "Overseeing the planning, execution, and evaluation of projects (Ent. Event).",
+                // Education
+                edu_title: "Education",
+                edu1_degree: "Bachelor of Software Engineering",
+                edu1_school: "Uskudar University",
+                edu1_desc: "GPA: 3.35, 100% Scholarship, C1 Advanced English Preparatory.",
+                // Contact
+                contact_title: "Get In Touch",
+                contact_desc: "I'm currently open to new opportunities. Feel free to reach out.",
+                contact_email: "Email Me",
+                contact_linkedin: "View Profile",
+                contact_phone: "Call Me",
+                contact_location: "Cekmekoy, Istanbul",
+            },
+            tr: {
+                // Nav
+                nav_about: "Hakkımda",
+                nav_projects: "Projeler",
+                nav_skills: "Yetenekler",
+                nav_interests: "İlgi Alanları",
+                nav_experience: "Deneyim",
+                nav_contact: "İletişim",
+                // Hero
+                hero_title: "Muhammed Orhun",
+                hero_subtitle: "Yazılım Mühendisliği Adayı",
+                hero_desc_1: "Yenilikçi çözümler üretmeye ve yeni teknolojiler öğrenmeye odaklıyım.",
+                hero_desc_2: "Hızlı öğrenme yeteneğimle karmaşık sorunlara etkili çözümler getiriyorum.",
+                hero_cta: "Projelerimi Gör",
+                hero_cta_2: "İletişime Geç",
+                // About
+                about_title: "Hakkımda",
+                about_desc: "Yazılım mühendisliğine olan yoğun ilgim ve merakım, beni sürekli olarak yeni teknolojiler öğrenmeye ve yenilikçi çözümler üretmeye itiyor. Hızlı öğrenme yeteneğim sayesinde karmaşık konuları çabucak kavrayabiliyor ve projelerde hızla ilerleyebiliyorum. Java, C ve C++ gibi dillerde yetkinim ve çeşitli projeler geliştirmek için fırsatlar arıyorum. Yazılım dünyasında kendimi sürekli geliştirmek ve yenilikçi çözümler üretmek için heyecanlıyım.",
+                // Projects
+                projects_title: "Projeler",
+                proj1_title: "Full-Stack Kanban Proje Takipçisi",
+                proj1_desc: "React, Node.js ve MongoDB ile geliştirilmiş bir proje takip web sitesi.",
+                proj2_title: "F1 İleri Düzey Veri Analizi",
+                proj2_desc: "Python kullanarak F1 araç telemetrisi üzerinden model bozulması, sürücü stili analizi ve yarış anomalilerinin tespiti.",
+                proj3_title: "Restoran Yönetim Sistemi",
+                proj3_desc: "Yöneticiler ve garsonlar için bir restoran uygulaması geliştirildi.",
+                proj4_title: "Figma Lojistik Yönetim Paneli",
+                proj4_desc: "Bir Figma tasarımına dayalı olarak bir lojistik yönetim paneli tasarlandı ve geliştirildi.",
+                // Skills
+                skills_title: "Yetenekler",
+                skills_lang: "Programlama Dilleri",
+                skills_tools: "Araçlar ve Teknolojiler",
+                // İlgi Alanları
+                interests_title: "İlgi Alanları",
+                interest_auto: "Otomotiv Yazılımları",
+                interest_app: "Uygulama Geliştirme",
+                interest_algo: "Algoritma Tasarımı",
+                interest_embed: "Gömülü Sistemler",
+                interest_cloud: "Bulut Teknolojileri",
+                interest_secure: "Güvenli Kodlama",
+                interest_qa: "Yazılım Test & Kalite",
+                // Experience
+                exp_title: "Deneyim",
+                exp1_role: "Computer Society Yönetim Kurulu Üyesi",
+                exp1_company: "IEEE Üsküdar Öğrenci Kolu",
+                exp1_date: "2023 - Günümüz",
+                exp1_desc1: "Etkinliklere ve projelere liderlik ederek organizasyonel becerileri geliştirme (RASTAGE 23).",
+                exp1_desc2: "Teknik çözümler tasarlamak ve uygulamak için ekiplerle çalışma (MICS' with MIS).",
+                exp1_desc3: "Projelerin planlanmasını, yürütülmesini ve değerlendirilmesini denetleme (Ent. Event).",
+                // Education
+                edu_title: "Eğitim",
+                edu1_degree: "Yazılım Mühendisliği Lisans",
+                edu1_school: "Üsküdar Üniversitesi",
+                edu1_desc: "GPA: 3.35, %100 Burs, C1 İleri Düzey İngilizce Hazırlık.",
+                // Contact
+                contact_title: "İletişime Geçin",
+                contact_desc: "Şu anda yeni fırsatlara açığım. Benimle iletişime geçmekten çekinmeyin.",
+                contact_email: "E-posta Gönder",
+                contact_linkedin: "Profilime Git",
+                contact_phone: "Ara",
+                contact_location: "Çekmeköy, İstanbul",
+            }
+        };
+
+        // ----- DOM Elementleri -----
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeIconSun = document.getElementById('theme-icon-sun');
+        const themeIconMoon = document.getElementById('theme-icon-moon');
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const currentYearEl = document.getElementById('current-year');
+        
+        let currentLang = localStorage.getItem('lang') || 'tr';
+        let isDarkMode = localStorage.getItem('theme') === 'dark';
+
+        // ----- Fonksiyonlar -----
+
+        // 1. Metinleri Güncelleme (Dil)
+        function updateTextContent(lang) {
+            document.documentElement.lang = lang;
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (content[lang][key]) {
+                    el.textContent = content[lang][key];
+                }
+            });
+            
+            // Buton metnini güncelle
+            langToggleBtn.textContent = lang === 'tr' ? 'ENG' : 'TR';
+            localStorage.setItem('lang', lang);
+        }
+
+        // 2. Temayı Güncelleme
+        function updateTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                themeIconSun.classList.add('hidden');
+                themeIconMoon.classList.remove('hidden');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIconSun.classList.remove('hidden');
+                themeIconMoon.classList.add('hidden');
+                localStorage.setItem('theme', 'light');
+            }
+            // Lucide iconlarını yeniden oluştur
+            lucide.createIcons();
+        }
+
+        // 3. Tema Değiştirme
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            updateTheme(isDarkMode);
+        }
+
+
+        // 4. Dil Değiştirme
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            updateTextContent(currentLang);
+        }
+        
+        // 5. Mobil Menü
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            // İkonu değiştir (Menu <-> Close)
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        }
+
+        // ----- Olay Dinleyicileri -----
+        document.addEventListener('DOMContentLoaded', () => {
+            // İkonları, temayı ve dili ilk yüklemede ayarla
+            lucide.createIcons();
+            updateTheme(isDarkMode);
+            updateTextContent(currentLang);
+            
+            // Yıl
+            currentYearEl.textContent = new Date().getFullYear();
+
+            // Tıklama olayları
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            langToggleBtn.addEventListener('click', toggleLanguage);
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+            // Mobil menü linklerine tıklayınca menüyü kapat
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.querySelector('i').setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                });
+            });
+        });
+
+        // ----- Tailwind Yapılandırması (Özel stiller için) -----
+        tailwind.config = {
+            darkMode: 'class', // <-- EKSİK OLAN KISIM BURASIYDI
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+            plugins: [
+                function ({ addComponents }) {
+                    addComponents({
+                        // Özel stilleri buraya ekleyebiliriz
+                        '.skill-pill': {
+                            '@apply inline-block bg-blue-100 text-blue-800 dark:bg-gray-700 dark:text-gray-200 rounded-full px-4 py-2 text-sm font-semibold transition-transform hover:scale-105': {},
+                        },
+                        '.project-card': {
+                            '@apply bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-200 dark:border-gray-700': {},
+                        },
+                        '.tech-pill': {
+                             '@apply inline-block bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full px-3 py-1 text-xs font-medium': {}
+                        },
+                        '.contact-card': {
+                            '@apply flex items-start p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:bg-white dark:hover:bg-gray-700 cursor-pointer': {}
+                        },
+                        '.contact-icon': {
+                            '@apply flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center mr-5': {}
+                        },
+                        '.contact-link': {
+                            '@apply inline-block mt-1 font-semibold group-hover:underline': {}
+                        }
+                    })
+                }
+            ]
+        }
+    </script>
 </body>
 </html>
+
+
+
+
+
+
